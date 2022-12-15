@@ -34,11 +34,13 @@ int main(int argc, char * argv[]) {
         path[j] = argv[1][i];
     }
     path[j] = '\0';
+    printf("\nhostname:%s\npath:%s\n",hostname,path );
     strcpy(request, "GET ");
     strcat(request, path);
     strcat(request, " HTTP/1.1\r\nHost: ");
     strcat(request, hostname);
     strcat(request, "\r\n\r\n");
+    printf("\nrequset:%s\n",request);
     struct hostent * host = gethostbyname(hostname);
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     serveraddr.sin_family = AF_INET;
@@ -50,9 +52,14 @@ int main(int argc, char * argv[]) {
     close(sockfd);
     printf("Enter file name to save: ");
     scanf("%s", newfile);
-    FILE * fd = fopen(newfile, "w+");
-    fwrite(response, 1, len, fd);
-    fclose(fd);
+
+    int file=creat(newfile,O_RDWR);
+    write(file,response,sizeof(response));
+    close(file);
+
+    // FILE * fd = fopen(newfile, "w+");
+    // fwrite(response, 1, len, fd);
+    // fclose(fd);
     printf("Downloaded file saved under %s\n", newfile);
     return 0;
 }

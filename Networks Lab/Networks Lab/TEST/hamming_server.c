@@ -10,10 +10,11 @@
 int main(int argc, char const* argv[])
 {
     int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
-    struct sockaddr_in ser;
+    struct sockaddr_in ser,cli;
     ser.sin_family = AF_INET;
     ser.sin_port = htons(atoi(argv[1]));
     ser.sin_addr.s_addr = INADDR_ANY;
+    bind(sockfd,(struct sockaddr_in*)&ser,sizeof(ser));
 
     char string[] = "101_010_1__";
     int position=0;
@@ -43,7 +44,7 @@ int main(int argc, char const* argv[])
     printf("string:%s\n",string);
 
     
-    sendto(sockfd, string, sizeof(string), MSG_CONFIRM, (struct sockaddr*)&ser, sizeof(ser));
+    sendto(sockfd, string, sizeof(string), MSG_CONFIRM, NULL, NULL);
     printf("MSG SENT\n");    
     return 0;
 }

@@ -15,11 +15,11 @@ int main(int argc, char const* argv[])
 	ser.sin_family = AF_INET;
 	ser.sin_port = htons(atoi(argv[1]));
 	ser.sin_addr.s_addr = INADDR_ANY;
-	bind(sockfd, (struct sockaddr*)&ser, sizeof(ser));
+	// bind(sockfd, (struct sockaddr*)&ser, sizeof(ser));
 	
 
-	int len = sizeof(cli);
-	recvfrom(sockfd, string, sizeof(string), MSG_WAITALL, (struct sockaddr*)&cli, &len);
+	int len = sizeof(ser);
+	recvfrom(sockfd, string, sizeof(string), MSG_WAITALL, (struct sockaddr*)&ser, &len);
 	
 	printf("%s\n", string);
 	int position=0;

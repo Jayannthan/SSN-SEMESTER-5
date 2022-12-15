@@ -18,14 +18,14 @@ int main(int argc, char const* argv[])
 	bind(sockfd, (struct sockaddr*)&ser, sizeof(ser));
 	// listen(sockfd, 1);
 	// int clientsocket = accept(sockfd, NULL, NULL);
-	while(1){
+	// while(1){
 	int len = sizeof(cli);
 	recvfrom(sockfd, string, sizeof(string), MSG_WAITALL, (struct sockaddr*)&cli, &len);
 	printf("%s\n", string);
 	strcpy(string, "abcd");
 	sendto(sockfd, string, sizeof(string), MSG_CONFIRM, (struct sockaddr*)&cli, len);
 	printf("MSG SENT\n");
-	}
+	// }
 
 	return 0;
 }
